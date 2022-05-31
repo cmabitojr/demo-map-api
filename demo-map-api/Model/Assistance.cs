@@ -9,4 +9,6 @@ namespace demo_map_api.Model
 
         public string? assistanceName { get; set; }
     }
+
+
 }

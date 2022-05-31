@@ -1,6 +1,8 @@
 ﻿using demo_map_api.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using demo_map_api.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace demo_map_api.Controller
 {
@@ -13,6 +15,48 @@ namespace demo_map_api.Controller
         public ApplicantsController (DataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        [HttpPut("{applicantID}")]
+        public async Task<IActionResult> PutApplicants(string applicantid, Applicant applicant)
+        {
+            //  if (id != productList.id)
+            //  {
+            //      return BadRequest();
+            //  }
+            applicant.applicantID = applicantid;
+            _dataContext.Entry(applicant).State = EntityState.Modified;
+            try
+            {
+                await _dataContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!applicantListExists(applicantid))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
+        }
+
+        private bool applicantListExists(string id)
+        {
+            return _dataContext.Applications.Any(e => e.applicantID == id);
+        }
+
+        [HttpGet("{applicantID}")]
+        public async Task<ActionResult<Applicant>> GetByApplicantID(string applicantID)
+        {
+            var applicant = await _dataContext.Applicants.FindAsync(applicantID);
+            {
+                return NotFound();
+            }
+            return applicant;
         }
     }
 }

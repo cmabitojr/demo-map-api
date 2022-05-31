@@ -1,6 +1,8 @@
 ﻿using demo_map_api.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using demo_map_api.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace demo_map_api.Controller
 {
@@ -14,5 +16,15 @@ namespace demo_map_api.Controller
         {
             _dataContext = dataContext;
         }
+
+        //GET: api/Assistance
+        [HttpGet]
+        public async Task<IEnumerable<Assistance>> GetApplications()
+        {
+            return await _dataContext.Assistances.ToListAsync();
+        }
+
+
+
     }
 }
