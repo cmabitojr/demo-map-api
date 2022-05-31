@@ -5,8 +5,8 @@ namespace demo_map_api.Model
     public class Assistance
     {
         [Key]
-        public int AssistanceID { get; set; }
+        public int assistanceID { get; set; }
 
-        public string? AssistanceName { get; set; }
+        public string? assistanceName { get; set; }
     }
 }

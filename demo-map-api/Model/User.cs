@@ -5,12 +5,12 @@ namespace demo_map_api.Model
     {
         [Key]
         [StringLength(20)]
-        public string Username { get; set; } = String.Empty;
+        public string username { get; set; } = String.Empty;
 
         [StringLength(20)]
-        public string Password { get; set; } = String.Empty;
+        public string password { get; set; } = String.Empty;
 
         [StringLength(100)]
-        public string NameOfUser { get; set; } = String.Empty;
+        public string nameOfUser { get; set; } = String.Empty;
     }
 }

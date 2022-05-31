@@ -5,14 +5,14 @@ namespace demo_map_api.Model
     public class Application
     {
         [Key]
-        public string? ApplicationID { get; set; }
+        public string? applicationID { get; set; }
 
-        public DateTime ApplicationDate { get; set; }
+        public DateTime applicationDate { get; set; }
 
-        public string? ApplicantID { get; set; }
+        public string? applicantID { get; set; }
 
-        public int AssistanceID { get; set; }
+        public int assistanceID { get; set; }
 
-        public int Status { get; set; }
+        public int status { get; set; }
     }
 }
