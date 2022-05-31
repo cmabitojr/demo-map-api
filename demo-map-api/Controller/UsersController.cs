@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace demo_map_api.Controller
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly DataContext _dataContext;
@@ -17,14 +17,14 @@ namespace demo_map_api.Controller
             _dataContext = dataContext;
         }
 
-        //GET: api/User
+        //GET: api/Users
         [HttpGet]
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _dataContext.Users.ToListAsync();
         }
 
-        //GET: api/User/Username
+        //GET: api/Users/Username
         [HttpGet("{Username}")]
         public async Task<ActionResult<User>> GetByUsername(string Username)
         {
