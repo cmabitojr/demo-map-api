@@ -1,8 +1,12 @@
-﻿namespace demo_map_api.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace demo_map_api.Model
 {
     public class Application
     {
-        public string? ApplicantionID { get; set; }
+        [Key]
+        public string? ApplicationID { get; set; }
+
         public DateTime ApplicationDate { get; set; }
 
         public string? ApplicantID { get; set; }
