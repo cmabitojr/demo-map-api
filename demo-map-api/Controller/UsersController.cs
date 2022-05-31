@@ -8,18 +8,18 @@ namespace demo_map_api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly DataContext _dataContext;
 
-        public UserController(DataContext dataContext)
+        public UsersController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
         //GET: api/User
         [HttpGet]
-        public async Task<IEnumerable<User>> GetUser()
+        public async Task<IEnumerable<User>> GetUsers()
         {
             return await _dataContext.Users.ToListAsync();
         }
