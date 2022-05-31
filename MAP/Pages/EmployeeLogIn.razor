@@ -1,0 +1,74 @@
+﻿@layout UserLayout
+@page "/EmployeeLogIn"
+@inject NavigationManager NavigationManager
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>PCSO Employee Login</PageTitle>
+
+<style>
+    body {
+        background-color: #37474F;
+    }
+</style>
+
+ <center>
+<MudContainer Class="d-flex align-center justify-center mud-width-full"  style="height:70vh;">
+<MudCard Outlined="true" Square="false" Elevation="100">
+   
+    <DataAnnotationsValidator/>
+    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+<MudGrid>
+    <MudItem>
+        <MudCard Style="width: 450px; height: 470px" Class="mt-5">
+            <br />
+           <MudImage Src="Images/users.png" Width="150" Height="150" Elevation="25" Class="rounded-lg ma-20"/>
+           <br /><br />
+        <MudText Typo="Typo.h5">PCSO Employee Login</MudText>
+            <MudCardContent>
+               <MudTextField Label="UserName" Class="mt-2"
+                              @bind-Value="model.Username" For="@(() => model.Username)"/>
+                <MudTextField Label="Password" Class="mt-2"
+                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
+           <br />
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Login" Style="@($"color:{Colors.LightGreen.Accent3}; background:{Colors.BlueGrey.Darken4};")" Size="Size.Large">Login</MudButton>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.KeyboardReturn" Style="@($"color:{Colors.LightGreen.Accent3}; background:{Colors.BlueGrey.Darken4};")" Size="Size.Large"@onclick="ReturntoHomePage">Back</MudButton>   
+    </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+    </EditForm>
+</MudCard>   
+</MudContainer>
+</center>
+
+@code {
+    RegisterAccountForm model = new RegisterAccountForm();
+    bool success;
+
+    public class RegisterAccountForm
+    {
+        [Required]
+        [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
+        public string Password { get; set; }
+
+    }
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+    private void ReturntoHomePage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+    
+
+}
+

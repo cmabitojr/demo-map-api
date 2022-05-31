@@ -1,0 +1,45 @@
+﻿@layout UserLayout
+@page "/Registration"
+@inject NavigationManager NavigationManager
+
+<PageTitle>Registration</PageTitle>
+
+<style>
+    body {
+        background-color: #37474F;
+    }
+</style>
+
+
+<MudContainer Class="d-flex align-center justify-center mud-width-full"  style="height:70vh;">
+<MudCard Outlined="true" Square="false" Elevation="100" Style="width: 450px; height: 380px" Class="mt-5">
+    
+         <br />
+       <MudCardContent>
+           <center>
+           @*<MudImage Src="Images/pcso.png" Width="150" Height="150" Elevation="25" Class="rounded-lg ma-20"/>*@
+           <br /><br />
+        <MudText Typo="Typo.h5">Medical Assistance Program</MudText>
+      <br/><br />
+      
+     <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Person" Style="@($"color:{Colors.LightGreen.Accent3}; background:{Colors.BlueGrey.Darken4};")" Size="Size.Large" @onclick="Patient">Patient</MudButton>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Badge" Style="@($"color:{Colors.LightGreen.Accent3}; background:{Colors.BlueGrey.Darken4};")" Size="Size.Large" @onclick="EmployeeLogIn">Employee</MudButton>
+     </center>
+ </MudCardContent>
+               
+            </MudCard>   
+</MudContainer>
+
+
+@code{
+    private void EmployeeLogIn()
+    {
+        NavigationManager.NavigateTo("/EmployeeLogIn");
+    }
+    private void Patient()
+    {
+        NavigationManager.NavigateTo("/Patient");
+    }
+    
+     }
