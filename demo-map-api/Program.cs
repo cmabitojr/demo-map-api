@@ -19,14 +19,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: myAllowSpecificOrigins,
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:7066")
-            //.AllowAnyMethod()
-            //.AllowAnyHeader()
-            ;
-        });
+    options.AddDefaultPolicy(
+        builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
 builder.Services.AddControllers();
@@ -42,42 +36,27 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting(); 
+app.UseRouting();
+app.UseCors();
+//app.UseCors(options =>
+//     options.WithOrigins("http://localhost:7066")
+//            .AllowAnyHeader()
+//            .AllowAnyMethod());
 
-app.UseCors(myAllowSpecificOrigins);
+//app.UseCors(myAllowSpecificOrigins);
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: myAllowSpecificOrigins,
+//        builder =>
+//        {
+//            builder.WithOrigins("http://localhost:7066"
+//                )
+//            .AllowAnyMethod()
+//            .AllowAnyHeader();
+//        });
+//});
 
 app.MapControllers();
 
 app.Run();
 
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
-
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//        new WeatherForecast
-//        (
-//            DateTime.Now.AddDays(index),
-//            Random.Shared.Next(-20, 55),
-//            summaries[Random.Shared.Next(summaries.Length)]
-//        ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast");
-
-
-
-//internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}
-
-//public void ConfigureService(IServiceCollection services)
-//{
-//    services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-//    services.AddControllers();
-//}

@@ -58,5 +58,14 @@ namespace demo_map_api.Controller
             }
             return applicant;
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Applicant>> PostApplicant(Applicant applicant)
+        {
+            _dataContext.Applicants.Add(applicant);
+            await _dataContext.SaveChangesAsync();
+            //return CreatedAtAction("GetByApplicantID", new { id = applicant.applicantID }, applicant);
+            return applicant;
+        }
     }
 }
