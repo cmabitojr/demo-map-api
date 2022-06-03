@@ -19,16 +19,26 @@ namespace demo_map_api.Controller
 
         //GET: api/Application
         [HttpGet]
-        public async Task<IEnumerable<Application>> GetApplications()
+        public async Task<IEnumerable<ApplicationList>> GetApplications()
         {
-            return await _dataContext.Applications.ToListAsync();
+            //return await _dataContext.Applications.ToListAsync();
+            //var result = await _dataContext.Applications.ToListAsync();
+            //var result2 = await _dataContext.Applicants.ToListAsync();
+
+    
+            var myApplication = from a in _dataContext.Applications
+                                join b in _dataContext.Applicants on a.applicantID equals b.applicantID into AB
+                                from CD in AB.DefaultIfEmpty()
+                                orderby a.applicationDate
+                                select new { a.applicationID, a.applicationDate };
+            return (IEnumerable<ApplicationList>)await myApplication.ToListAsync();
         }
 
         //GET: api/Users/Application
-        [HttpGet("{applicationID}")]
-        public async Task<ActionResult<Application>> GetByApplications(string applicationID)
+        [HttpGet("{ApplicationID}")]
+        public async Task<ActionResult<Application>> GetByApplications(string applicantID)
         {
-            var Application = await _dataContext.Applications.FindAsync(applicationID);
+            var Application = await _dataContext.Applications.FindAsync(applicantID);
             {
                 return NotFound();
             }
@@ -75,6 +85,29 @@ namespace demo_map_api.Controller
         private bool applicationListExists(string id)
         {
             return _dataContext.Applications.Any(e => e.applicationID == id);
+        }
+
+        public class ApplicationList
+        {
+            public string? applicantID { get; set; }
+
+            public string? firstName { get; set; }
+
+            public string? middleName { get; set; }
+
+            public string? lastName { get; set; }
+
+            public string? extensionName { get; set; }
+
+            public DateTime birthday { get; set; }
+
+            public string? applicationID { get; set; }
+
+            public DateTime applicationDate { get; set; }
+
+            public string assistance { get; set; }
+
+            public string status { get; set; }
         }
     }
 }

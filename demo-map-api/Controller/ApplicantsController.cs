@@ -53,6 +53,7 @@ namespace demo_map_api.Controller
         public async Task<ActionResult<Applicant>> GetByApplicantID(string applicantID)
         {
             var applicant = await _dataContext.Applicants.FindAsync(applicantID);
+            if (applicant == null)
             {
                 return NotFound();
             }
